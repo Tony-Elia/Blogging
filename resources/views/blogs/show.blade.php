@@ -32,44 +32,25 @@
                 </div>
             @endif
 
-            @include('components.application-logo');
-            <div class="flex-col mt-[7rem] mb-16">
-                <div class="flex flex-row justify-center mb-12">
-                    <h1 id="articlesTitle" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);" class="flex text-white text-center text-3xl md:text-4xl font-extrabold">
-                        <div class="animate-[textPop_0.8s_ease-in-out_0.3s_1_normal_forwards] translate-y-[-120%]">A</div>
-                        <div class="animate-[textPop_0.8s_ease-in-out_0.35s_1_normal_forwards] translate-y-[-120%]">r</div>
-                        <div class="animate-[textPop_0.8s_ease-in-out_0.4s_1_normal_forwards] translate-y-[-120%]">t</div>
-                        <div class="animate-[textPop_0.8s_ease-in-out_0.45s_1_normal_forwards] translate-y-[-120%]">i</div>
-                        <div class="animate-[textPop_0.8s_ease-in-out_0.5s_1_normal_forwards] translate-y-[-120%]">c</div>
-                        <div class="animate-[textPop_0.8s_ease-in-out_0.55s_1_normal_forwards] translate-y-[-120%]">l</div>
-                        <div class="animate-[textPop_0.8s_ease-in-out_0.6s_1_normal_forwards] translate-y-[-120%]">e</div>
-                        <div class="animate-[textPop_0.8s_ease-in-out_0.65s_1_normal_forwards] translate-y-[-120%]">s</div>
-                    </h1>
+            @include('components.application-logo')
+            
+            <div class="flex flex-col container p-4  px-7 lg:max-w-[65%]">
+                <div class="flex flex-row mb-16 items-center justify-center text-slate-100">
+                    <h1 class="text-2xl md:text-3xl glow text-center">{{ $blog->title }}</h1>
                 </div>
-                @if (isset($unAuth))
-                    <div class="text-center text-white justify-center items-center flex bg-red-500 rounded-[2rem] w-3/4 mt-2 py-1 px-3 m-4">{{ $unAuth }}</div>
-                @endif
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mx-auto px-6 max-w-[1200px]">
-                    @foreach ($blogs as $blog)
-                        <a href="{{ route('blog.show', $blog->id) }}" class="group scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent via-35% dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 hover:via-70% focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <h2 class="mt-2 text-xl font-semibold text-gray-900 dark:text-white">{{ $blog->title }}</h2>
-                                <p class="mt-6 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    {{ Str::limit($blog->body, 150) }}
-                                </p>
-                                <p class="text-gray-200 text-sm mt-3">
-                                    Author: <span class="text-red-500">{{ $blog->user->name }}</span>, Date: {{ date('d/m/Y', strtotime($blog->date)) }}
-                                </p>
-                            </div>
-                            <div class="flex flex-col justify-center transition-all group-hover:translate-x-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 group-hover:stroke-red-400 w-6 h-6 mx-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                                </svg>
-                            </div>
-                        </a>
-                    @endforeach
-
-                </div>
+                <div class="text-slate-200">Created by <span class="text-red-500">{{ $blog->user->name }}</span></div>
+                <div class="text-slate-200">Creation Date: <span class="text-slate-500">{{ date('d/m/Y', strtotime($blog->date)) }}</span></div>
+                <p class="text-white mt-7">
+                    {{ $blog->body }}
+                </p>
+                @auth
+                    <div class="flex mt-4">
+                        @if ($blog->user->id == Auth::user()->id)
+                            <a href="{{ route('blog.edit', $blog->id) }}" class="block text-md rounded-full bg-gray-700 hover:bg-black transition-all text-white px-5 py-1.5 mr-2 font-medium focus:outline focus:outline-2 focus:outline-red-400">Edit</a>
+                            <a href="{{ route('blog.destroy', $blog->id) }}" class="block text-md rounded-full bg-red-500 hover:bg-red-800 transition-all text-white px-5 py-1.5 font-medium focus:outline focus:outline-2 focus:outline-red-400">Delete</a>
+                        @endif
+                    </div>
+                @endauth
             </div>
         </div>
     </body>

@@ -2,3 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind screens;
+
+.glow {
+    text-shadow: 0 0 10px #fff,
+    0 0 20px #ef4444,
+    0 0 30px #ef4444,
+    0 0 50px #ef4444,
+    0 0 80px #ef4444,
+    0 0 100px #ef4444;
+}
+
+@keyframes textPop {
+    from {
+        transform: translateY(-120%);
+    } to {
+        transform: translateX(0px);
+    }
+}

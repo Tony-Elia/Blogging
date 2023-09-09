@@ -12,14 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::create('blog', function(Blueprint $table) {
-        //     $table->id();
-        //     $table->string('title')->unique();
-        //     $table->text('body');
-        //     $table->integer('author_id');
-        //     $table->timestamp('date');
-        //     $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
-        // });
+        Schema::create('blogs', function(Blueprint $table) {
+            $table->id();
+            $table->string('title')->unique();
+            $table->text('body');
+            $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
+            $table->timestamp('date');
+        });
     }
 
     /**
