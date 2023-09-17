@@ -51,9 +51,14 @@
                 @endif
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mx-auto px-6 max-w-[1200px]">
                     @foreach ($blogs as $blog)
-                        <a href="{{ route('blog.show', $blog->id) }}" class="group scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent via-35% dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 hover:via-70% focus:outline focus:outline-2 focus:outline-red-500">
+                        <a href="{{ route('blog.show', $blog->id) }}" class="group scale-100 p-6 pt-7 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent via-35% dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 hover:via-70% focus:outline focus:outline-2 focus:outline-red-500 justify-between">
                             <div>
-                                <h2 class="mt-2 text-xl font-semibold text-gray-900 dark:text-white">{{ $blog->title }}</h2>
+                                <div class="flex flex-row items-start">
+                                    <h2 class="mr-auto text-xl font-semibold text-gray-900 dark:text-white">{{ $blog->title }}</h2>
+                                    @foreach ($blog->categories as $category)
+                                        <span class="bg-red-500 text-white text-sm px-2.5 py-1 rounded-2xl ml-2">{{ $category->category }}</span>
+                                    @endforeach
+                                </div>
                                 <p class="mt-6 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
                                     {{ Str::limit($blog->body, 150) }}
                                 </p>
@@ -68,7 +73,6 @@
                             </div>
                         </a>
                     @endforeach
-
                 </div>
             </div>
         </div>

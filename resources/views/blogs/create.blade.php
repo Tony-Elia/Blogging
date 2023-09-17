@@ -33,7 +33,6 @@
             @endif
 
             @include('components.application-logo');
-            
             <div class="text-center text-white justify-center items-center flex flex-col bg-gray-800 rounded-[2rem] w-full sm:w-[65%] lg:w-[40%] my-24">
                 <h1 class="flex text-white text-center text-3xl md:text-4xl font-extrabold mt-8 mb-5">Edit</h1>
                 @if($errors->any())
@@ -43,12 +42,24 @@
                 @endif
                 <form method="POST" class="w-[80%] mb-8" action="{{ route('blog.store', Auth::user()->id) }}">
                     @csrf
-                 
+                    
                     <input type="text" name="title" placeholder="Title..." value="{{ old('title') }}" class="bg-gray-900/70 border-none focus:ring-red-500 focus:ring-2 block w-full text-md rounded-xl outline-none my-6">
-
+                    
                     <textarea name="body" placeholder="Body..." rows="20" class="bg-gray-900/70 border-none focus:ring-red-500 focus:ring-2 block w-full text-md rounded-xl outline-none my-6">{{ old('body') }}</textarea>
 
-                    <input type="datetime-local" name="date" value="{{ old('date') }}" class="bg-gray-900/70 border-none focus:ring-red-500 focus:ring-2 transition-all block w-full text-md rounded-xl outline-none my-6 text-white">
+                    <h2 class="text-xl">Tags</h2> <br>
+                    <div class="flex flex-wrap">
+                        @foreach ($categories as $category)
+                        <div class="flex">
+                            <input type="checkbox" class="hidden peer" name="categories[]" value="{{ $category->id }}" id="{{ $category->category }}"/>
+                            
+                            <label class="px-2 py-1 bg-gray-900 hover:bg-black peer-checked:bg-red-500 transition-all rounded-md m-1 cursor-pointer" for="{{ $category->category }}">{{ $category->category }}</label>
+                        </div>
+                        @endforeach
+                    </div>
+                    
+                    <h2 class="text-xl -mb-4 mt-3">Date</h2>
+                    <input type="datetime-local" name="date" value="{{ old('date') ? old('date') : now() }}" class="bg-gray-900/70 border-none focus:ring-red-500 focus:ring-2 transition-all block w-full text-md rounded-xl outline-none my-6 text-white">
 
                     <button type="submit" class="p-1.5 px-10 rounded-full text-white transition-all bg-red-500 hover:bg-white hover:text-black">Create</button>
                 </form>

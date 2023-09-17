@@ -39,7 +39,12 @@
                     <h1 class="text-2xl md:text-3xl glow text-center">{{ $blog->title }}</h1>
                 </div>
                 <div class="text-slate-200">Created by <span class="text-red-500">{{ $blog->user->name }}</span></div>
-                <div class="text-slate-200">Creation Date: <span class="text-slate-500">{{ date('d/m/Y', strtotime($blog->date)) }}</span></div>
+                <div class="text-slate-200">Creation Date: <span class="text-slate-400">{{ date('d/m/Y', strtotime($blog->date)) }}</span></div>
+                <div class="text-slate-200">Tags: 
+                    @foreach ($blog->categories as $category)
+                        <span class="text-slate-300 underline">{{ $category->category }}</span> 
+                    @endforeach
+                </div>
                 <p class="text-white mt-7">
                     {{ $blog->body }}
                 </p>
@@ -47,7 +52,7 @@
                     <div class="flex mt-4">
                         @if ($blog->user->id == Auth::user()->id)
                             <a href="{{ route('blog.edit', $blog->id) }}" class="block text-md rounded-full bg-gray-700 hover:bg-black transition-all text-white px-5 py-1.5 mr-2 font-medium focus:outline focus:outline-2 focus:outline-red-400">Edit</a>
-                            <a href="{{ route('blog.destroy', $blog->id) }}" class="block text-md rounded-full bg-red-500 hover:bg-red-800 transition-all text-white px-5 py-1.5 font-medium focus:outline focus:outline-2 focus:outline-red-400">Delete</a>
+                            <a href="{{ route('blog.destroy', ['id' => $blog->id, 'before' => (url()->previous() == route('dashboard') ? 'dashboard' : 'home')]) }}" class="block text-md rounded-full bg-red-500 hover:bg-red-800 transition-all text-white px-5 py-1.5 font-medium focus:outline focus:outline-2 focus:outline-red-400">Delete</a>
                         @endif
                     </div>
                 @endauth

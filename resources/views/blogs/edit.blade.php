@@ -49,6 +49,18 @@
 
                     <textarea name="body" rows="20" class="bg-gray-900/70 border-none focus:ring-red-500 focus:ring-2 block w-full text-md rounded-xl outline-none my-6">{{ $blog->body }}</textarea>
 
+                    <h2 class="text-xl">Tags</h2> <br>
+                    <div class="flex flex-wrap">
+                        @dd($registered)
+                        @foreach ($categories as $category)
+                        <div class="flex">
+                            <input type="checkbox" class="hidden peer" name="categories[]" value="{{ $category->id }}" id="{{ $category->category }}" {{ in_array($category, $registered) ? checked : ''; }}/>
+                            
+                            <label class="px-2 py-1 bg-gray-900 hover:bg-black peer-checked:bg-red-500 transition-all rounded-md m-1 cursor-pointer" for="{{ $category->category }}">{{ $category->category }}</label>
+                        </div>
+                        @endforeach
+                    </div>
+
                     <input type="datetime-local" name="date" value="{{ $blog->date }}" class="bg-gray-900/70 border-none focus:ring-red-500 focus:ring-2 transition-all block w-full text-md rounded-xl outline-none my-6 text-white">
 
                     <button type="submit" class="p-1.5 px-10 rounded-full text-white transition-all bg-red-500 hover:bg-white hover:text-black">Save</button>
