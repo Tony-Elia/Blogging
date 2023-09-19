@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,8 @@ Route::controller(BlogController::class)->group(function() {
     Route::get('/create', 'create')->name('blog.create')->middleware('auth');
     Route::post('/', 'store')->name('blog.store')->middleware('auth');
 });
+
+Route::post('/addCategory', [CategoryController::class, 'store'])->middleware('auth')->name('category.store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

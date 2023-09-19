@@ -34,14 +34,14 @@
 
             @include('components.application-logo');
             
-            <div class="text-center text-white justify-center items-center flex flex-col bg-gray-800 rounded-[2rem] w-full sm:w-[65%] lg:w-[40%] my-24">
-                <h1 class="flex text-white text-center text-3xl md:text-4xl font-extrabold mt-8 mb-5">Edit</h1>
+            <div class="text-center text-white justify-center items-center flex flex-col bg-gray-800 rounded-[2rem] w-full sm:w-[65%] lg:w-[40%] my-24 p-8">
+                <h1 class="flex text-white text-center text-3xl md:text-4xl font-extrabold">Edit</h1>
                 @if($errors->any())
                     @foreach ($errors->all() as $error)
                         <div class="text-center text-white justify-center items-center flex bg-red-500 rounded-[2rem] w-3/4 mt-2 py-1 px-3">{{ $error }}</div>
                     @endforeach
                 @endif
-                <form method="POST" class="w-[80%] mb-8" action="{{ route('blog.update', $blog->id) }}">
+                <form method="POST" action="{{ route('blog.update', $blog->id) }}">
                     @csrf
                     @method('PATCH')
                  
@@ -51,7 +51,6 @@
 
                     <h2 class="text-xl">Tags</h2> <br>
                     <div class="flex flex-wrap">
-                        {{-- @dd($registered->dot()) --}}
                         @foreach ($categories as $category)
                         <div class="flex">
                             <input type="checkbox" class="hidden peer" name="categories[]" value="{{ $category->id }}" id="{{ $category->category }}" {{ $registered->contains('category_id', $category->id) ? 'checked' : ''; }}/>

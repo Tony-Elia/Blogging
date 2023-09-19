@@ -89,11 +89,22 @@ class BlogController extends Controller
      */
     public function update(BlogFormRequest $request, $id)
     {
-        Blog::find($id)->update([
+        Blog::findOrFail($id)->update([
             'title' => $request->title,
             'body' => $request->body,
             'date' => $request->date
         ]);
+        CategoryBlog::where('blog_id', $id)->delete();
+
+        if(isset($request->categories)){
+            foreach ($request->categories as $categoryId) {
+                CategoryBlog::create([
+                    'blog_id' => $id,
+                    'category_id' => $categoryId
+                ]);
+            }
+        }
+
         return redirect(route('blog.show', ['id' => $id]));
     }
 
