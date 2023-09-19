@@ -51,9 +51,13 @@
 
                     <h2 class="text-xl">Tags</h2> <br>
                     <div class="flex flex-wrap">
+<<<<<<< HEAD
+=======
+                        @dd($registered)
+>>>>>>> parent of c73fc41 (Categories visible in edit page)
                         @foreach ($categories as $category)
                         <div class="flex">
-                            <input type="checkbox" class="hidden peer" name="categories[]" value="{{ $category->id }}" id="{{ $category->category }}" {{ $registered->contains('category_id', $category->id) ? 'checked' : ''; }}/>
+                            <input type="checkbox" class="hidden peer" name="categories[]" value="{{ $category->id }}" id="{{ $category->category }}" {{ in_array($category, $registered) ? checked : ''; }}/>
                             
                             <label class="px-2 py-1 bg-gray-900 hover:bg-black peer-checked:bg-red-500 transition-all rounded-md m-1 cursor-pointer" for="{{ $category->category }}">{{ $category->category }}</label>
                         </div>
