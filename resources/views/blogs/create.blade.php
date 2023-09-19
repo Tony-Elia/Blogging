@@ -56,7 +56,7 @@
                     </div>
                     
                     <h2 class="text-xl -mb-4 mt-3">Date</h2>
-                    <input type="date" name="date" value="{{ old('date') ? old('date') : now() }}" class="bg-gray-900 border-none focus:ring-red-500 focus:ring-2 transition-all block w-full text-md rounded-xl outline-none my-6 text-white">
+                    <input type="date" name="date" value="{{ old('date') ? old('date') : (date('Y').'-'.date('m').'-'.date('d')) }}" class="bg-gray-900 border-none focus:ring-red-500 focus:ring-2 transition-all block w-full text-md rounded-xl outline-none my-6 text-white">
 
                     <button type="submit" class="p-1.5 px-10 rounded-full text-white transition-all bg-red-500 hover:bg-white hover:text-black">Create</button>
                 </form>
