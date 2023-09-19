@@ -17,7 +17,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="antialiased">
-        <div class="relative flex flex-col sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white px-4">
+        <div id="bodyToggler" class="relative flex flex-col sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white px-4">
             @if (Route::has('login'))
                 <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
                     @auth
@@ -36,11 +36,7 @@
             
             <div class="text-center text-white justify-center items-center flex flex-col bg-gray-800 rounded-[2rem] w-full sm:w-[65%] lg:w-[40%] my-24 p-8">
                 <h1 class="flex text-white text-center text-3xl md:text-4xl font-extrabold">Edit</h1>
-                @if($errors->any())
-                    @foreach ($errors->all() as $error)
-                        <div class="text-center text-white justify-center items-center flex bg-red-500 rounded-[2rem] w-3/4 mt-2 py-1 px-3">{{ $error }}</div>
-                    @endforeach
-                @endif
+                @include('components.error-show')
                 <form method="POST" action="{{ route('blog.update', $blog->id) }}">
                     @csrf
                     @method('PATCH')
@@ -51,24 +47,29 @@
 
                     <h2 class="text-xl">Tags</h2> <br>
                     <div class="flex flex-wrap">
-<<<<<<< HEAD
-=======
-                        @dd($registered)
->>>>>>> parent of c73fc41 (Categories visible in edit page)
                         @foreach ($categories as $category)
                         <div class="flex">
-                            <input type="checkbox" class="hidden peer" name="categories[]" value="{{ $category->id }}" id="{{ $category->category }}" {{ in_array($category, $registered) ? checked : ''; }}/>
-                            
+                            <input type="checkbox" class="hidden peer" name="categories[]" value="{{ $category->id }}" id="{{ $category->category }}" {{ $registered->contains('category_id', $category->id) ? 'checked' : ''; }}/>
+                                
                             <label class="px-2 py-1 bg-gray-900 hover:bg-black peer-checked:bg-red-500 transition-all rounded-md m-1 cursor-pointer" for="{{ $category->category }}">{{ $category->category }}</label>
                         </div>
                         @endforeach
+                        <button type="button" id="modalToggler" class="px-2 py-1 text-black bg-white hover:bg-white/70 transition-all duration-300 rounded-md m-1">Add Category</button>
                     </div>
 
-                    <input type="datetime-local" name="date" value="{{ $blog->date }}" class="bg-gray-900/70 border-none focus:ring-red-500 focus:ring-2 transition-all block w-full text-md rounded-xl outline-none my-6 text-white">
+                    <input type="date" name="date" value="{{ $blog->date }}" class="bg-gray-900/70 border-none focus:ring-red-500 focus:ring-2 transition-all block w-full text-md rounded-xl outline-none my-6 text-white">
 
                     <button type="submit" class="p-1.5 px-10 rounded-full text-white transition-all bg-red-500 hover:bg-white hover:text-black">Save</button>
                 </form>
             </div>
+        </div>
+        <!-- Modal content-->
+        <div id="categoryModal" class="transition-all duration-[0.5s] fixed top-[-5rem] left-[50%] max-w-[90%] translate-x-[-50%] justify-center">
+            <form action="{{ route('category.store') }}" method="post">
+                @csrf
+                <input id="categoryInput" name="category" class="w-[250px] bg-white border-none focus:ring-red-500 focus:ring-4 transition-all block text-md rounded-3xl outline-none" type="text" placeholder="Category Title...">
+                <button type="submit" class="hidden"></button>
+            </form>
         </div>
     </body>
 </html>

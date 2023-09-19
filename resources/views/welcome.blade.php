@@ -46,9 +46,7 @@
                         <div class="animate-[textPop_0.8s_ease-in-out_0.65s_1_normal_forwards] translate-y-[-120%]">s</div>
                     </h1>
                 </div>
-                @if (isset($unAuth))
-                    <div class="text-center text-white justify-center items-center flex bg-red-500 rounded-[2rem] w-3/4 mt-2 py-1 px-3 m-4">{{ $unAuth }}</div>
-                @endif
+                
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mx-auto px-6 max-w-[1200px]">
                     @foreach ($blogs as $blog)
                         <a href="{{ route('blog.show', $blog->id) }}" class="group scale-100 p-6 pt-7 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent via-35% dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 hover:via-70% focus:outline focus:outline-2 focus:outline-red-500 justify-between">

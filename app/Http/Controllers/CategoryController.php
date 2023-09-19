@@ -32,7 +32,7 @@ class CategoryController extends Controller
         Category::create([
             'category' => ucwords($request->category)
         ]);
-        return back();
+        return back()->withInput();
     }
 
     /**
