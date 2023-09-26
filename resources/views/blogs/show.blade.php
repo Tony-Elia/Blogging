@@ -22,7 +22,7 @@
                         <x-button bg="gray-700" class="hover:bg-gray-800 text-white">Edit</x-button>
                     </a>
                     <a href="{{ route('blog.destroy', ['id' => $blog->id, 'before' => (url()->previous() == route('dashboard') ? 'dashboard' : 'home')]) }}">
-                        <x-button class="hover:bg-red-700 ml-3 text-white">Delete</x-button>
+                        <x-button class="py-1.5 hover:bg-red-700 ml-3 text-white">Delete</x-button>
                     </a>
                 @endif
             </div>

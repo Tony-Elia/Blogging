@@ -1,5 +1,5 @@
 @props([
-    'px' => '5',
+    'px' => '4',
     'py' => '1.5',
     'bg' => 'red-500',
     'rounded' => 'full'
