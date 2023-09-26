@@ -1,11 +1,13 @@
-<x-app-layout>
+<x-app-layout navbg="true">
     <x-slot name="header">
         <div class="flex">
             <h2 class="flex items-center font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Dashboard') }}
             </h2>
             <div class="flex ml-auto">
-                <a href="{{ route('blog.create') }}" class="text-white py-1.5 px-3 bg-red-500 hover:bg-gray-900 transition-all rounded-md">+ Add blog</a>
+                <a href="{{ route('blog.create') }}">
+                    <x-button rounded="md" class="text-white hover:bg-red-700">+ Add Blog</x-button>
+                </a>
             </div>
         </div>
     </x-slot>
