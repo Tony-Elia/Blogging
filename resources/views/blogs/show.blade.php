@@ -13,7 +13,7 @@
             @endforelse
         </div>
         <p class="text-white my-7">
-            {{ print_r(nl2br($blog->body)) }}
+            {{ Str::substr((print(nl2br($blog->body))), 0, -1) }}
         </p>
         @auth
             <div class="flex my-4">
@@ -21,9 +21,12 @@
                     <a href="{{ route('blog.edit', $blog->id) }}">
                         <x-button bg="gray-700" class="hover:bg-gray-800 text-white">Edit</x-button>
                     </a>
-                    <a href="{{ route('blog.destroy', ['id' => $blog->id, 'before' => (url()->previous() == route('dashboard') ? 'dashboard' : 'home')]) }}">
-                        <x-button class="py-1.5 hover:bg-red-700 ml-3 text-white">Delete</x-button>
-                    </a>
+                    <form action="{{ route('blog.destroy', ['id' => $blog->id, 'before' => (url()->previous() == route('dashboard') ? 'dashboard' : 'home')]) }}" method="post">
+                        @csrf
+                        @method('delete')
+
+                        <x-button type="submit" class="py-1.5 hover:bg-red-700 ml-3 text-white">Delete</x-button>
+                    </form>
                 @endif
             </div>
         @endauth

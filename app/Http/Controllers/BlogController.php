@@ -40,8 +40,8 @@ class BlogController extends Controller
     public function store(BlogFormRequest $request)
     {
         $blog = Blog::create([
-            'title' => $request->title,
-            'body' => $request->body,
+            'title' => ($request->title),
+            'body' => ($request->body),
             'date' => $request->date,
             'author_id' => Auth::user()->id
         ]);
@@ -90,8 +90,8 @@ class BlogController extends Controller
     public function update(BlogFormRequest $request, $id)
     {
         Blog::findOrFail($id)->update([
-            'title' => $request->title,
-            'body' => $request->body,
+            'title' => ($request->title),
+            'body' => ($request->body),
             'date' => $request->date
         ]);
         CategoryBlog::where('blog_id', $id)->delete();

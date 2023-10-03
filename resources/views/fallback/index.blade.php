@@ -8,13 +8,12 @@
     <title>Page Not Found</title>
 </head>
 <body class="antialiased">
-    <div class="flex flex-col items-center justify-center w-full h-full">
+    <div class="flex flex-col items-center justify-center w-screen h-screen">
         <div class="contents h-max-full w-max-full font-bold">
             <img src="{{ asset('storage/404.svg') }}" class="object-cover object-center max-h-full md:max-w-[50%]" alt="404 Page Not Found">
             Page Not Found!
             <a class="block rounded-full bg-red-500 hover:bg-red-800 transition-all text-white px-7 py-2 font-medium focus:outline focus:outline-2 focus:outline-red-400 my-3" href="{{ route('home') }}">Home</a>
         </div>
     </div>
-
 </body>
 </html>

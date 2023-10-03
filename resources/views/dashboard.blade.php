@@ -37,8 +37,12 @@
                                 <a href="{{ route('blog.edit', $blog->id) }}" class="flex w-full justify-center text-md bg-transparent hover:bg-gray-600 transition-all
                                     text-white px-5 py-3.5 font-medium focus:outline focus:outline-2 focus:outline-red-400">Edit</a>
                                 <hr class="w-3/4 opacity-20 mx-auto my-none">
-                                <a href="{{ route('blog.destroy', ['id' => $blog->id, 'before' => (url()->previous() == route('dashboard') ? 'dashboard' : 'home')]) }}" class="flex w-full justify-center text-md rounded-b-lg bg-transparent hover:bg-gray-600 transition-all
-                                    text-white px-5 py-3.5 font-medium focus:outline focus:outline-2">Delete</a>
+                                <form action="{{ route('blog.destroy', ['id' => $blog->id, 'before' => (url()->previous() == route('dashboard') ? 'dashboard' : 'home')]) }}" method="post">
+                                    @csrf
+                                    @method('delete')
+            
+                                    <x-button type="submit" bg="transparent" rounded="none" px="5" py="3.5" class="flex w-full justify-center text-md rounded-b-lg hover:bg-gray-600 transition-all text-white font-medium focus:outline focus:outline-2">Delete</x-button>
+                                </form>
                             </div>
                         @endforeach
                     @else

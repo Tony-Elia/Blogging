@@ -30,7 +30,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         Category::create([
-            'category' => ucwords($request->category)
+            'category' => $request->category
         ]);
         return back()->withInput();
     }

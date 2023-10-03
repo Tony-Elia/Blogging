@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class BlogFormRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class BlogFormRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->author_id ? Gate::check('blog-update', $this->author_id) : true;
     }
 
     /**
@@ -26,5 +28,12 @@ class BlogFormRequest extends FormRequest
             'body' => 'required',
             'date' => 'required|before_or_equal:' . now()
         ];
+    }
+
+    protected function prepareForValidation(): void {
+        $this->merge([
+            'title' => strip_tags($this->title),
+            'body' => strip_tags($this->body)
+        ]);
     }
 }
